@@ -12,8 +12,9 @@ call textobj#user#plugin('hydrogen', {
 \      }
 \    })
 
+let s:pattern = '^# \?%%'
 function! s:move_p()
-  let next_line = search("^# %%", "cbnW")
+  let next_line = search(s:pattern, "cbnW")
 
   " Just in case the notebook has no starting cell.
   if next_line == 0
@@ -27,7 +28,7 @@ function! s:move_p()
 endfunction
   
 function! s:move_n()
-  let next_line = search("^# %%", "cnW")
+  let next_line = search(s:pattern, "cnW")
 
   if next_line == 0 " We are the last cell
     let next_line = line('$')
@@ -42,8 +43,8 @@ function! s:move_n()
 endfunction
 
 function! s:select_a()
-  let start_line = search("^# %%", "cbnW")
-  let end_line = search("^# %%", "nW")
+  let start_line = search(s:pattern, "cbnW")
+  let end_line = search(s:pattern, "nW")
 
   " Just in case the notebook is malformed and doesnt
   " have a cell marker at the start.
@@ -65,8 +66,8 @@ function! s:select_a()
 endfunction
 
 function! s:select_i()
-  let start_line = search("^# %%", "cbnW")
-  let end_line = search("^# %%", "nW")
+  let start_line = search(s:pattern, "cbnW")
+  let end_line = search(s:pattern, "nW")
 
   " Just in case the notebook is malformed and doesnt
   " have a cell marker at the start.
